@@ -1,3 +1,16 @@
 spring:
   application:
     name: Nullam
+  datasource:
+    url: jdbc:postgresql://postgres/nullam
+    driver-class-name: org.postgresql.Driver
+    username: nullam
+    password: parool
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8080
