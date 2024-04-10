@@ -1,0 +1,5 @@
+.idea
+*.iml
+
+# Frontend
+frontend/node_modules
