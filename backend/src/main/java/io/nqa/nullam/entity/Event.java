@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,4 +24,8 @@ public class Event {
     @Column(nullable = false)
     private String location;
     private String additionalInfo;
+
+    @ManyToMany
+    @Column(nullable = false)
+    private List<Participant> participants;
 }
