@@ -30,6 +30,8 @@ public class ParticipantController {
 
     @PostMapping
     public ResponseEntity<ParticipantDTO> saveParticipant(@RequestBody final ParticipantDTO participantDTO) {
+        if (participantDTO.getPerson() == null && participantDTO.getOrganization() == null)
+            return ResponseEntity.badRequest().build();
         return ResponseEntity.ok(
                 this.participantService.participantToDto(
                         this.participantService.saveParticipant(
