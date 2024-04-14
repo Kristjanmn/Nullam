@@ -7,6 +7,7 @@ import io.nqa.nullam.repository.ParticipantRepository;
 import io.nqa.nullam.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class ParticipantService implements IParticipantService {
 
     @Override
     public List<Participant> getParticipants() {
-        return this.participantRepository.findAll();
+        return this.participantRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     @Override
@@ -43,7 +44,8 @@ public class ParticipantService implements IParticipantService {
     public List<ParticipantDTO> getParticipantDtos() {
         List<ParticipantDTO> dtos = new ArrayList<>();
         for (Participant participant : this.getParticipants()) {
-            dtos.add(this.participantToDto(participant));
+            if (participant != null)
+                dtos.add(this.participantToDto(participant));
         }
         return dtos;
     }
