@@ -1,0 +1,7 @@
+{
+  "title": "Nullam",
+  "nav": {
+    "/": "Home",
+    "/newevent": "Add new event"
+  }
+}
