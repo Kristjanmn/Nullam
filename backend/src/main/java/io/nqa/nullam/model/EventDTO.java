@@ -3,6 +3,7 @@ package io.nqa.nullam.model;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class EventDTO {
@@ -11,4 +12,5 @@ public class EventDTO {
     private LocalDateTime dateTime;
     private String location;
     private String additionalInfo;
+    private List<ParticipantDTO> participants;
 }
