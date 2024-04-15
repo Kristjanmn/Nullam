@@ -19,6 +19,7 @@ public class ParticipantService implements IParticipantService {
     private final ParticipantRepository participantRepository;
     private final PersonRepository personRepository;
     private final OrganizationRepository organizationRepository;
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public List<Participant> getParticipants() {
@@ -32,12 +33,12 @@ public class ParticipantService implements IParticipantService {
 
     @Override
     public ParticipantDTO participantToDto(Participant participant) {
-        return new ModelMapper().map(participant, ParticipantDTO.class);
+        return this.modelMapper.map(participant, ParticipantDTO.class);
     }
 
     @Override
     public Participant dtoToParticipant(ParticipantDTO participantDTO) {
-        return new ModelMapper().map(participantDTO, Participant.class);
+        return this.modelMapper.map(participantDTO, Participant.class);
     }
 
     @Override

@@ -15,6 +15,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventService implements IEventService {
     private final EventRepository eventRepository;
+    private final ModelMapper modelMapper = new ModelMapper();
+
     @Override
     public List<Event> getEvents() {
         return this.eventRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
@@ -27,12 +29,12 @@ public class EventService implements IEventService {
 
     @Override
     public EventDTO eventToDto(Event event) {
-        return new ModelMapper().map(event, EventDTO.class);
+        return this.modelMapper.map(event, EventDTO.class);
     }
 
     @Override
     public Event dtoToEvent(EventDTO eventDTO) {
-        return new ModelMapper().map(eventDTO, Event.class);
+        return this.modelMapper.map(eventDTO, Event.class);
     }
 
     @Override
@@ -55,6 +57,8 @@ public class EventService implements IEventService {
 
     @Override
     public Event saveEvent(Event event) {
+        if (event.getParticipants() == null)
+            event.setParticipants(new ArrayList<>());
         return this.eventRepository.save(event);
     }
 }
