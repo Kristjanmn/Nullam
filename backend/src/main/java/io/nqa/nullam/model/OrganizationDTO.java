@@ -7,8 +7,8 @@ import lombok.Data;
 public class OrganizationDTO {
     private long id;
     private String name;
-    private int registrationCode;
-    private int participants;
+    private long registrationCode;
+    private long participants;
     private PaymentMethod paymentMethod;
     private String additionalInfo;
 }

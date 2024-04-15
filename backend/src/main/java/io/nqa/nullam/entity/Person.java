@@ -20,7 +20,7 @@ public class Person {
     private String lastName;
 
     @Column(nullable = false)
-    private int personalCode;
+    private long personalCode;
 
     @Column(nullable = false)
     private PaymentMethod paymentMethod;

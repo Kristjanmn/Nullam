@@ -40,7 +40,7 @@ public class ParticipantController {
             PersonDTO person = participantDTO.getPerson();
             // Verify that required parameters are present. These are full name, payment method and personal code.
             if (StringUtils.isAnyStringBlank(person.getFirstName(), person.getLastName()) ||
-                    person.getPaymentMethod() == null || NumberUtils.intLength(person.getPersonalCode()) != 11)
+                    person.getPaymentMethod() == null || NumberUtils.longLength(person.getPersonalCode()) != 11)
                 return ResponseEntity.badRequest().build();
         }
         if (participantDTO.getOrganization() != null) {

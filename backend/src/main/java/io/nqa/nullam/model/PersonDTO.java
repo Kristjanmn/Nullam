@@ -8,7 +8,7 @@ public class PersonDTO {
     private long id;
     private String firstName;
     private String lastName;
-    private int personalCode;
+    private long personalCode;
     private PaymentMethod paymentMethod;
     private String additionalInfo;
 }

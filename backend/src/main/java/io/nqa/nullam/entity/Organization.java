@@ -17,10 +17,10 @@ public class Organization {
     private String name;
 
     @Column(nullable = false)
-    private int registrationCode;
+    private long registrationCode;
 
     @Column(nullable = false)
-    private int participants;
+    private long participants;
 
     @Column(nullable = false)
     private PaymentMethod paymentMethod;
