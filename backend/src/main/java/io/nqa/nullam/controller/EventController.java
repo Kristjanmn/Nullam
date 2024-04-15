@@ -2,6 +2,7 @@ package io.nqa.nullam.controller;
 
 import io.nqa.nullam.model.EventDTO;
 import io.nqa.nullam.service.IEventService;
+import io.nqa.nullam.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +30,10 @@ public class EventController {
 
     @PostMapping
     public ResponseEntity<EventDTO> saveEvent(@RequestBody final EventDTO eventDTO) {
-        if (eventDTO == null)
+        if (eventDTO == null || StringUtils.isAnyStringBlank(eventDTO.getName(), eventDTO.getLocation())
+                || eventDTO.getDateTime() == null)
             return ResponseEntity.badRequest().build();
+
         return ResponseEntity.ok(
                 this.eventService.eventToDto(
                         this.eventService.saveEvent(
