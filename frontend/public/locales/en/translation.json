@@ -3,5 +3,8 @@
   "nav": {
     "/": "Home",
     "/newevent": "Add new event"
+  },
+  "home": {
+    "info-text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ullamcorper purus sit amet nunc dictum pulvinar. Quisque ac lacus vitae velit maximus porttitor eu cursus sem. In aliquet euismod justo, iaculis consectetur erat vehicula quis. Proin vitae sapien dapibus, consequat elit quis, vulputate nunc."
   }
 }
