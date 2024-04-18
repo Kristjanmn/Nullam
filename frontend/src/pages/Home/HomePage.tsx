@@ -11,12 +11,14 @@ export const HomePage: React.FC<HomePageProps> = (props: HomePageProps) => {
         return (
             <>
                 <Splitter className="info-panel">
-                    <SplitterPanel>
-                        <div className="info-panel-text">
-                            {t('home.info-text')}
+                    <SplitterPanel className="flex alight-items-center justify-content-center">
+                        <div className="info-panel-left">
+                            <div className="info-panel-text">
+                                {t('home.info-text')}
+                            </div>
                         </div>
                     </SplitterPanel>
-                    <SplitterPanel>
+                    <SplitterPanel className="flex alight-items-center justify-content-center">
                         <img className="info-panel-image" src={`//${window?.top?.location.host}/pilt.jpg`} alt="image" />
                     </SplitterPanel>
                 </Splitter>

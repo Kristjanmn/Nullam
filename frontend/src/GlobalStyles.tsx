@@ -11,10 +11,15 @@ const GlobalStyles = createGlobalStyle`
     
     .header {
         background-color: white;
+        border: 0px;
+    }
+    .p-menubar {
+        padding: 0;
+        border: 0px;
     }
     
     .header-logo {
-        padding: 0 30px;
+        padding: 0 2rem;
     }
     
     .header-nav {
@@ -22,12 +27,12 @@ const GlobalStyles = createGlobalStyle`
     }
     
     .header-symbol {
-        padding: 0 30px;
+        padding: 0 2rem;
     }
     
     // Home page
     .info-panel {
-        margin: 5px;
+        margin: 1rem 0;
     }
     .p-splitter-gutter {
         display: none;
@@ -36,14 +41,24 @@ const GlobalStyles = createGlobalStyle`
         display: none;
     }
     
-    .info-panel-text {
+    .info-panel-left {
         background-color: blue;
         color: white;
+        padding: 2rem;
         height: 100%;
-        font-size: large;
     }
     
-    .info-panel-image {}
+    .info-panel-text {
+        font-size: x-large;
+        text-align: start;
+        height: 100%;
+        align-content: center;
+    }
+    
+    .info-panel-image {
+        height: 100%;
+        width: 100%;
+    }
 `;
 
 export default GlobalStyles;
