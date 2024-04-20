@@ -4,7 +4,7 @@ const navButtonTemplate = (item: MenuItem, options: MenuItemOptions) => {
     return (
         <div className="header-nav">
             <a className={options.className} target={item.target} onClick={options.onClick}>
-                <span className={options.className}><b>{item.label}</b></span>
+                <span className={options.className}>{item.label}</span>
             </a>
         </div>
     );
