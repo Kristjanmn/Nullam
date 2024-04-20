@@ -3,6 +3,7 @@ import Header from './components/Header/Header';
 import './App.css';
 import { RouterProvider } from './components/RouterProvider';
 import GlobalStyles from './GlobalStyles';
+import Footer from './components/Footer/Footer';
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <div className="content">
                 <Header />
                 <RouterProvider />
+                <Footer />
             </div>
         </div>
     );
