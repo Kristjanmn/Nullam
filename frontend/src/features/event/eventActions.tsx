@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../utils/api';
+import { RootState } from '../../app/store';
+import { setPastEvents, setUpcomingEvents } from './eventSlice';
 
 export const getEvents = createAsyncThunk(
     'event/getEvents',
@@ -17,10 +19,10 @@ export const getEvents = createAsyncThunk(
 
 export const getUpcomingEvents = createAsyncThunk(
     'event/getUpcomingEvents',
-    async () => {
+    async (args, { dispatch}) => {
         await API.get('event/upcoming')
             .then(response => {
-                return response.data;
+                dispatch(setUpcomingEvents(response.data));
             })
             .catch(error => {
                 console.error(error);
@@ -31,10 +33,10 @@ export const getUpcomingEvents = createAsyncThunk(
 
 export const getPastEvents = createAsyncThunk(
     'event/getPastEvents',
-    async () => {
+    async (args, { dispatch }) => {
         await API.get('event/past')
             .then(response => {
-                return response.data;
+                dispatch(setPastEvents(response.data));
             })
             .catch(error => {
                 console.error(error);

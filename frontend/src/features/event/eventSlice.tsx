@@ -10,14 +10,35 @@ export type Event = {
     participants: Participant[];
 };
 
-export type EventState = {}
+export type EventState = {
+    upcomingEvents: Event[];
+    pastEvents: Event[];
+    selectedEvent?: Event;
+    selectedEventParticipants?: Participant[];
+}
 
-const initialState: EventState = {};
+const initialState: EventState = {
+    upcomingEvents: [],
+    pastEvents: []
+};
 
 const eventSlice = createSlice({
     name: 'event',
     initialState,
-    reducers: {}
+    reducers: {
+        setUpcomingEvents: (state, action) => {
+            state.upcomingEvents = action.payload;
+        },
+        setPastEvents: (state, action) => {
+            state.pastEvents = action.payload;
+        },
+        setSelectedEvent: (state, action) => {
+            state.selectedEvent = action.payload;
+            state.selectedEventParticipants = action.payload.participants;
+        }
+    }
 });
+
+export const { setUpcomingEvents, setPastEvents, setSelectedEvent } = eventSlice.actions;
 
 export default eventSlice.reducer;
