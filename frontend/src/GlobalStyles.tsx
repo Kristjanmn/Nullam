@@ -117,12 +117,83 @@ const GlobalStyles = createGlobalStyle`
         font-size: 12px;
         display: inline;
     }
+    // END HOME PAGE
+    
+    // NEW EVENT PAGE
+    .new-event-page {
+        background-color: white;
+    }
+    .new-event-container {
+        width: 600px;
+        margin: 0 auto;
+        padding: 1rem;
+    }
+    .new-event-form {
+        padding: 3rem 0;
+    }
+    .new-event-buttons {
+        display: inline;
+        margin-right: 100%;
+    }
+    .new-event-buttons-back {
+        background-color: #eff2f4;
+        border-color: #eff2f4;
+        color: black;
+    }
+    .new-event-buttons-add {
+        margin-left: 0.5rem;
+        background-color: #005aa1;
+        border-color: #005aa1;
+    }
+    
+    // PAGE HEAD
+    .page-head {
+        margin-top: 1rem;
+        border: 0;
+        border-radius: 0;
+        background-color: #005aa1;
+    }
+    .page-head-text {
+        color: white;
+        font-size: 28px;
+        text-align: start;
+        align-content: center;
+        height: 100%;
+        padding: 1rem 2rem;
+    }
+    .page-head-image {
+        height: 5rem;
+        overflow: hidden;
+        width: 100%;
+        vertical-align: middle;
+        object-fit: cover;
+    }
     
     // FOOTER
     .footer {
         background-color: #373737;
         color: white;
         padding: 2rem;
+        margin-top: 1rem;
+    }
+    
+    .page-title {
+        color: #005aa1;
+        font-size: 28px;
+        margin-right: 100%;
+        display: inline;
+    }
+    
+    .label-field {
+        display: flex;
+        margin-top: 10px;
+    }
+    .lf-l {
+        float: left;
+    }
+    .lf-r {
+        margin-left: auto;
+        width: 300px;
     }
 `;
 
