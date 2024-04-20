@@ -5,11 +5,13 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { getPastEvents, getUpcomingEvents } from '../../features/event/eventActions';
 import { Event } from '../../features/event/eventSlice';
 import { EventsComponentTemplate } from './EventsComponent';
+import { useNavigate } from 'react-router-dom';
 
 type HomePageProps = {};
 
 export const HomePage: React.FC<HomePageProps> = (props: HomePageProps) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const upcomingEvents: Event[] = useAppSelector((state) => state.event.upcomingEvents);
     const pastEvents: Event[] = useAppSelector((state) => state.event.pastEvents);
@@ -24,7 +26,7 @@ export const HomePage: React.FC<HomePageProps> = (props: HomePageProps) => {
     }, []);
 
     const onClick_newEventBtn = () => {
-        // TODO
+        navigate('newevent');
     }
 
     const infoPanel = () => {
