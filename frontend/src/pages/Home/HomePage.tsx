@@ -23,6 +23,10 @@ export const HomePage: React.FC<HomePageProps> = (props: HomePageProps) => {
         updateEventsPanel();
     }, []);
 
+    const onClick_newEventBtn = () => {
+        // TODO
+    }
+
     const infoPanel = () => {
         return (
             <>
@@ -45,7 +49,7 @@ export const HomePage: React.FC<HomePageProps> = (props: HomePageProps) => {
     const eventsPanel_upcoming = () => {
         return (
             <>
-                <EventsComponentTemplate title={t('home.upcoming-events')} events={upcomingEvents} />
+                <EventsComponentTemplate title={t('home.upcoming-events')} events={upcomingEvents} removeEventBtn={true} newEventBtn={true} newEventBtnAction={onClick_newEventBtn} />
             </>
         );
     };
@@ -60,10 +64,10 @@ export const HomePage: React.FC<HomePageProps> = (props: HomePageProps) => {
         return (
             <>
                 <Splitter className="events-panel">
-                    <SplitterPanel>
+                    <SplitterPanel className="events-panel-left">
                         {eventsPanel_upcoming()}
                     </SplitterPanel>
-                    <SplitterPanel>
+                    <SplitterPanel className="events-panel-right">
                         {eventsPanel_past()}
                     </SplitterPanel>
                 </Splitter>
