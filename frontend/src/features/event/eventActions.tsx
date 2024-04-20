@@ -14,3 +14,31 @@ export const getEvents = createAsyncThunk(
             });
     }
 );
+
+export const getUpcomingEvents = createAsyncThunk(
+    'event/getUpcomingEvents',
+    async () => {
+        await API.get('event/upcoming')
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                console.error(error);
+                return error;
+            });
+    }
+);
+
+export const getPastEvents = createAsyncThunk(
+    'event/getPastEvents',
+    async () => {
+        await API.get('event/past')
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                console.error(error);
+                return error;
+            });
+    }
+);
