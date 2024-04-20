@@ -2,7 +2,7 @@ import { Participant } from '../participant/participantSlice';
 import { createSlice } from '@reduxjs/toolkit';
 
 export type Event = {
-    id: number;
+    id: number | null;
     name: string;
     dateTime: Date;
     location: string;
@@ -15,6 +15,7 @@ export type EventState = {
     pastEvents: Event[];
     selectedEvent?: Event;
     selectedEventParticipants?: Participant[];
+    eventToSave?: Event;
 }
 
 const initialState: EventState = {
@@ -35,10 +36,16 @@ const eventSlice = createSlice({
         setSelectedEvent: (state, action) => {
             state.selectedEvent = action.payload;
             state.selectedEventParticipants = action.payload.participants;
+        },
+        setEventToSave: (state, action) => {
+            state.eventToSave = action.payload;
+        },
+        clearEventToSave: (state) => {
+            state.eventToSave = undefined;
         }
     }
 });
 
-export const { setUpcomingEvents, setPastEvents, setSelectedEvent } = eventSlice.actions;
+export const { setUpcomingEvents, setPastEvents, setSelectedEvent, setEventToSave, clearEventToSave } = eventSlice.actions;
 
 export default eventSlice.reducer;
