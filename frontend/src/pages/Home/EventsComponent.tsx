@@ -1,6 +1,6 @@
 import { Event } from '../../features/event/eventSlice';
 import { useTranslation } from 'react-i18next';
-import { Button } from 'primereact/button';
+import EventsTable from './EventsTable';
 
 type EventsComponentProps = {
     title: string;
@@ -8,47 +8,28 @@ type EventsComponentProps = {
     removeEventBtn?: boolean;
     newEventBtn?: boolean;
     newEventBtnAction?: () => void;
-}
-
-const EventTemplate = (event: Event) => {
-    const { t } = useTranslation();
-
-    return (
-        <>
-            <div>
-                {event.name}
-                {event.dateTime.getDate()}
-                <Button label={t('home.event-participants')} />
-            </div>
-        </>
-    );
 };
 
 const EventsComponentTemplate = (props: EventsComponentProps) => {
     const { t } = useTranslation();
 
-    const getEvents = () => {
-        return props.events.map((event) => (
-            <EventTemplate id={event.id} name={event.name} dateTime={event.dateTime} location={event.location} additionalInfo={event.additionalInfo} participants={event.participants} />
-        ));
-    }
-
-    const eventsMap = getEvents();
-
     return (
         <>
             <div className="home-events">
                 <div className="home-events-header">{props.title}</div>
-                <div>
+                <div className="home-events-content">
                     {props.events ? <>
-                        {eventsMap}
+                        <EventsTable events={props.events} canRemove={props.removeEventBtn} />
                     </> : <>
                         {t('home.noevents')}
                     </>}
+                    {props.newEventBtn ? <>
+                        <a className="home-events-new-event-btn" onClick={props.newEventBtnAction}>{t('home.new-event')}</a>
+                    </> : <></>}
                 </div>
             </div>
         </>
     );
 };
 
-export { EventsComponentTemplate }
+export { EventsComponentTemplate };
