@@ -21,7 +21,7 @@ const EventsComponentTemplate = (props: EventsComponentProps) => {
                     {props.events ? <>
                         <EventsTable events={props.events} canRemove={props.removeEventBtn} />
                     </> : <>
-                        {t('home.noevents')}
+                        {t('home.no-events')}
                     </>}
                     {props.newEventBtn ? <>
                         <a className="home-events-new-event-btn" onClick={props.newEventBtnAction}>{t('home.new-event')}</a>
