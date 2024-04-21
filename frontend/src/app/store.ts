@@ -1,12 +1,14 @@
 import { createEpicMiddleware } from 'redux-observable';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import eventSlice from '../features/event/eventSlice';
+import participantSlice from '../features/participant/participantSlice';
 
 const epicMiddleware = createEpicMiddleware();
 
 const store = configureStore({
     reducer: combineReducers({
-        event: eventSlice
+        event: eventSlice,
+        participant: participantSlice
     }),
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({serializableCheck: false})
