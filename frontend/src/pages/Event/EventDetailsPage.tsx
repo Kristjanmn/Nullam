@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import PageHeadComponent from '../../components/PageHeadComponent';
-import { getEventById } from '../../features/event/eventActions';
+import { getEvent, saveEvent } from '../../features/event/eventActions';
 import { dateToString_precise } from '../../utils/date-utils';
 import { Organization, Participant, Person } from '../../features/participant/participantSlice';
+import { setEventToGet, setEventToSave } from '../../features/event/eventSlice';
 import ParticipantsTable from './ParticipantsTable';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
@@ -15,23 +16,34 @@ import { PaymentMethod } from '../../enums/paymentMethod';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
+import { isAnyStringBlank } from '../../utils/string-utils';
+import { cloneDeep } from 'lodash';
 
 type EventDetailsPageProps = {};
 
 export const EventDetailsPage: React.FC<EventDetailsPageProps> = (props: EventDetailsPageProps) => {
     const { t } = useTranslation();
-    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const params = useParams();
     const event = useAppSelector((state) => state.event.selectedEvent);
     const [participantType, setParticipantType] = useState<ParticipantType>(ParticipantType.PERSON);
-    const [newParticipant_person, setNewParticipant_person] = useState<Person>({id: null, firstName: '', lastName: '', personalCode: 0, paymentMethod: PaymentMethod.BANK_TRANSACTION, additionalInfo: ''});
+    const [newParticipant_person, setNewParticipant_person] = useState<Person>({id: null, firstName: '', lastName: '', personalCode: 0, paymentMethod: PaymentMethod.DEFAULT, additionalInfo: ''});
     const [newParticipant_organization, setNewParticipant_organization] = useState<Organization>({id: null, name: '', registrationCode: 0, participants: 1, paymentMethod: PaymentMethod.BANK_TRANSACTION, additionalInfo: ''});
+    const paymentMethodOptions = [
+        { name: `${t('generic.payment-method.bank-transaction')}`, value: PaymentMethod.BANK_TRANSACTION},
+        { name: `${t('generic.payment-method.cash')}`, value: PaymentMethod.CASH},
+    ];
+
+    const getData = () => {
+        if (params.id) {
+            dispatch(setEventToGet(params.id))
+            dispatch(getEvent());
+        }
+    };
 
     useEffect(() => {
-        if (params.id)
-            dispatch(getEventById(Number(params.id)));
-    }, []);
+        getData();
+    }, [params]);
 
     const eventDetails = () => {
         return (
@@ -101,11 +113,11 @@ export const EventDetailsPage: React.FC<EventDetailsPageProps> = (props: EventDe
                     </div>
                     <div className="label-field">
                         <label className="label-field-left" htmlFor="paymentMethod">{t('participant.person.payment-method')}:</label>
-                        <Dropdown className="label-field-right" id="paymentMethod" value={newParticipant_person.paymentMethod} onChange={(e) => setNewParticipant_person({...newParticipant_person, personalCode: e.target.value})} />
+                        <Dropdown className="label-field-right" id="paymentMethod" options={paymentMethodOptions} optionLabel="name" value={newParticipant_person.paymentMethod.valueOf()} onChange={(e) => setNewParticipant_person({...newParticipant_person, paymentMethod: e.target.value})} />
                     </div>
                     <div className="label-field">
                         <label className="label-field-left" htmlFor="additionalInfo">{t('participant.person.additional-info')}:</label>
-                        <InputTextarea className="label-field-right" id="additionalInfo" value={newParticipant_person.additionalInfo} onChange={(e) => setNewParticipant_person({...newParticipant_person, additionalInfo: e.target.value})} autoResize />
+                        <InputTextarea className="label-field-right" id="additionalInfo" value={newParticipant_person.additionalInfo} onChange={(e) => setNewParticipant_person({...newParticipant_person, additionalInfo: e.target.value})} autoResize maxLength={1500} />
                     </div>
                 </div>
             </div>
@@ -130,11 +142,11 @@ export const EventDetailsPage: React.FC<EventDetailsPageProps> = (props: EventDe
                     </div>
                     <div className="label-field">
                         <label className="label-field-left" htmlFor="paymentMethod">{t('participant.organization.payment-method')}:</label>
-                        <Dropdown className="label-field-right" id="paymentMethod" value={newParticipant_organization.paymentMethod} onChange={(e) => setNewParticipant_organization({...newParticipant_organization, paymentMethod: e.target.value})} />
+                        <Dropdown className="label-field-right" id="paymentMethod" options={paymentMethodOptions} optionLabel="name" value={newParticipant_organization.paymentMethod} onChange={(e) => setNewParticipant_organization({...newParticipant_organization, paymentMethod: e.target.value})} />
                     </div>
                     <div className="label-field">
                         <label className="label-field-left" htmlFor="additionalInfo">{t('participant.organization.additional-info')}:</label>
-                        <InputTextarea className="label-field-right" id="additionalInfo" value={newParticipant_organization.additionalInfo} onChange={(e) => setNewParticipant_organization({...newParticipant_organization, additionalInfo: e.target.value})} autoResize />
+                        <InputTextarea className="label-field-right" id="additionalInfo" value={newParticipant_organization.additionalInfo} onChange={(e) => setNewParticipant_organization({...newParticipant_organization, additionalInfo: e.target.value})} autoResize maxLength={5000} />
                     </div>
                 </div>
             </div>
@@ -149,7 +161,52 @@ export const EventDetailsPage: React.FC<EventDetailsPageProps> = (props: EventDe
         );
     };
 
-    const save = async () => {};
+    const save = async () => {
+        let newParticipant: Participant = {id: null, person: null, organization: null}
+        let requirementsMet: boolean = false;
+        if (participantType === ParticipantType.PERSON) {
+            // check all required fields
+            const per = newParticipant_person;
+            if (!isAnyStringBlank([per.firstName, per.lastName]) &&
+                per.personalCode.toString().length === 11 && per.paymentMethod) {
+                requirementsMet = true;
+                newParticipant.person = newParticipant_person;
+            }
+        }
+        if (participantType === ParticipantType.ORGANIZATION) {
+            // check all required fields
+            const org = newParticipant_organization
+            if (!isAnyStringBlank([org.name]) &&
+                org.registrationCode !== 0 && org.participants > 0 && org.paymentMethod) {
+                requirementsMet = true;
+                newParticipant.organization = newParticipant_organization;
+            }
+        }
+        if (requirementsMet && (newParticipant.person || newParticipant_organization)) {
+            // dispatch(setParticipantToSave(newParticipant));
+            // await dispatch(saveParticipant())
+            //     .then(unwrapResult)
+            //     .then(r => {
+            //         console.log(r)
+            //         let newEvent = cloneDeep(event);
+            //         newEvent.participants.push(r);
+            //         dispatch(setEventToSave(newEvent));
+            //         dispatch(saveEvent())
+            //             .then(r2 => console.log(r2));
+            //         getData();
+            //     })
+            //     .catch(error => window.alert(error));
+            let newEvent = cloneDeep(event);
+            newEvent.participants.push(newParticipant);
+            dispatch(setEventToSave(newEvent));
+            await dispatch(saveEvent())
+                .then(r => {
+                    console.log(r);
+                })
+                .catch(error => console.error(error))
+                .finally(() => window.location.reload());
+        } else window.alert("required fields are empty");
+    };
 
     const participantFromButtons = () => {
         return (

@@ -5,10 +5,12 @@ import {
     setUpcomingEvents,
     setSelectedEvent,
     clearEventToSave,
-    clearEventToGet, clearEventToDelete
+    clearEventToGet, clearEventToDelete, setEventToSave
 } from './eventSlice';
 import { HttpStatusCode } from 'axios';
 import { RootState } from '../../app/store';
+import { cloneDeep } from 'lodash';
+import { Participant } from '../participant/participantSlice';
 
 export const getEvents = createAsyncThunk(
     'event/getEvents',
@@ -74,8 +76,10 @@ export const saveEvent = createAsyncThunk(
         const state: RootState = getState();
         await API.post('event/', state.event.eventToSave)
             .then(response => {
-                if (response.status === HttpStatusCode.Ok && response.data.id)
+                if (response.status === HttpStatusCode.Ok && response.data.id) {
+                    dispatch(setSelectedEvent(response.data));
                     return response.data.id;
+                }
             })
             .catch(error => {
                 console.error(error);
@@ -89,9 +93,8 @@ export const deleteEvent = createAsyncThunk(
     'event/delete',
     async (args, { getState, dispatch }) => {
         const state: RootState = getState();
-        await API.delete(`event/${state.event.e.id}`)
+        await API.delete(`event/${state.event.eventToDelete.id}`)
             .then(() => {
-                return;
             })
             .catch(error => {
                 console.error(error);
@@ -100,3 +103,25 @@ export const deleteEvent = createAsyncThunk(
             .finally(dispatch(clearEventToDelete));
     }
 );
+
+export const removeParticipantFromEvent = createAsyncThunk(
+    'event/removeParticipant',
+    async (args, { getState, dispatch }) => {
+        const state: RootState = getState();
+        let newEvent = cloneDeep(state.event.participantToRemove_event);
+        let newEvent_participants: Participant[] = [];
+        newEvent.participants.forEach((participant: Participant) => {
+            if (participant !== state.event.participantToRemove_participant)
+                newEvent_participants.push(participant);
+        });
+        newEvent.participants = newEvent_participants;
+        dispatch(setEventToSave(newEvent));
+        await dispatch(saveEvent())
+            .then(() => {})
+            .catch((error) => {
+                console.error(error);
+                return error;
+            })
+            .finally(() => dispatch(clearEventToSave()));
+    }
+)
