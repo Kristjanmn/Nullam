@@ -1,21 +1,23 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../utils/api';
-import { clearParticipantToSave, setParticipant } from './participantSlice';
+import { clearParticipantToGet, clearParticipantToSave, setParticipant } from './participantSlice';
 import { HttpStatusCode } from 'axios';
 import { RootState } from '../../app/store';
 
 export const getParticipant = createAsyncThunk(
     'participant/getById',
-    async (id: number, { dispatch }) => {
-        API.get(`participant/${id}`)
+    async (args, { getState, dispatch }) => {
+        const state: RootState = getState();
+        if (state.participant.participantToGet === undefined) return;
+        API.get(`participant/${state.participant.participantToGet}`)
             .then(response => {
-                dispatch(setParticipant(response.data))
-                return response;
+                dispatch(setParticipant(response.data));
             })
             .catch(error => {
                 console.error(error);
                 return error;
-            });
+            })
+            .finally(() => dispatch(clearParticipantToGet()));
     }
 );
 
