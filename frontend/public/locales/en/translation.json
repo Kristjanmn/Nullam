@@ -48,6 +48,14 @@
     },
     "name": "Name",
     "code": "Code",
-    "participant-info": "Participant info"
+    "participant-info": "Participant info",
+    "back": "Back",
+    "save": "Save"
+  },
+  "generic": {
+    "payment-method": {
+      "bank-transaction": "Bank transaction",
+      "cash": "Cash"
+    }
   }
 }

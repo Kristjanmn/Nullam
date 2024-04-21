@@ -48,6 +48,14 @@
     },
     "name": "Nimi",
     "code": "Kood",
-    "participant-info": "Osavõtja info"
+    "participant-info": "Osavõtja info",
+    "back": "Tagasi",
+    "save": "Salvesta"
+  },
+  "generic": {
+    "payment-method": {
+      "bank-transaction": "Pangaülekannega",
+      "cash": "Sularahas"
+    }
   }
 }
