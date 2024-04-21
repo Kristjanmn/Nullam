@@ -52,6 +52,17 @@
     "back": "Back",
     "save": "Save"
   },
+  "footer": {
+    "contact": "Contact",
+    "headquarters": "Headquarters: Tallinn",
+    "headquarters-address": "Väike-Ameerika 1, 11415 Tallinn",
+    "headquarters-telephone":"Telephone: 605 4450",
+    "headquarters-fax": "Fax: 605 3186",
+    "office-voru": "Office: Võru",
+    "office-voru-address": "Oja tn 7 (visiting address)",
+    "office-voru-telephone": "Telephone: 605 3330",
+    "office-voru-fax": "Fax: 605 3155"
+  },
   "generic": {
     "payment-method": {
       "bank-transaction": "Bank transaction",

@@ -52,6 +52,17 @@
     "back": "Tagasi",
     "save": "Salvesta"
   },
+  "footer": {
+    "contact": "Kontakt",
+    "headquarters": "Peakontor: Tallinnas",
+    "headquarters-address": "Väike-Ameerika 1, 11415 Tallinn",
+    "headquarters-telephone":"Telefon: 605 4450",
+    "headquarters-fax": "Faks: 605 3186",
+    "office-voru": "Harukontor: Võru",
+    "office-voru-address": "Oja tn 7 (külastusaadress)",
+    "office-voru-telephone": "Telefon: 605 3330",
+    "office-voru-fax": "Faks: 605 3155"
+  },
   "generic": {
     "payment-method": {
       "bank-transaction": "Pangaülekannega",
