@@ -18,6 +18,8 @@ export type EventState = {
     eventToGet?: number;
     eventToSave?: Event;
     eventToDelete?: Event;
+    participantToRemove_event?: Event;
+    participantToRemove_participant?: Participant;
 }
 
 const initialState: EventState = {
@@ -56,10 +58,18 @@ const eventSlice = createSlice({
         },
         clearEventToDelete: (state) => {
             state.eventToDelete = undefined;
+        },
+        setParticipantToRemove: (state, action) => {
+            state.participantToRemove_event = action.payload.event;
+            state.participantToRemove_participant = action.payload.participant;
+        },
+        clearParticipantToRemove: (state) => {
+            state.participantToRemove_event = undefined;
+            state.participantToRemove_participant = undefined;
         }
     }
 });
 
-export const { setUpcomingEvents, setPastEvents, setSelectedEvent, setEventToGet, clearEventToGet, setEventToSave, clearEventToSave, setEventToDelete, clearEventToDelete } = eventSlice.actions;
+export const { setUpcomingEvents, setPastEvents, setSelectedEvent, setEventToGet, clearEventToGet, setEventToSave, clearEventToSave, setEventToDelete, clearEventToDelete, setParticipantToRemove, clearParticipantToRemove } = eventSlice.actions;
 
 export default eventSlice.reducer;
