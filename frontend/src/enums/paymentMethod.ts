@@ -1,4 +1,5 @@
 export enum PaymentMethod {
-    BANK_TRANSACTION,
-    CASH
+    DEFAULT = "",
+    BANK_TRANSACTION = "BANK_TRANSACTION",
+    CASH = "CASH"
 }
