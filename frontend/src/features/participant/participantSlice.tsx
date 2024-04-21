@@ -7,13 +7,6 @@ export type Participant = {
     organization: Organization | null;
 };
 
-export type SimpleParticipant = {
-    id: number;
-    name: string;
-    code: number;
-    buttons: boolean;
-};
-
 export type Person = {
     id: number | null;
     firstName: string;
