@@ -5,6 +5,7 @@ import React, { useMemo } from 'react';
 import { Column } from 'primereact/column';
 import { useNavigate } from 'react-router-dom';
 import { Event } from '../../features/event/eventSlice';
+import { useAppDispatch } from '../../app/hooks';
 
 type EventsTableProps = {
     events: Event[];
@@ -14,7 +15,8 @@ type EventsTableProps = {
 const EventsTable: React.FC<EventsTableProps> = (props: EventsTableProps) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const columns = getColumns(t, navigate, props.canRemove || false);
+    const dispatch = useAppDispatch();
+    const columns = getColumns(t, navigate, dispatch, props.canRemove || false);
 
     const columnComponents = useMemo(() =>
         columns.map((col) => {
