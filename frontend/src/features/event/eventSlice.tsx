@@ -15,7 +15,9 @@ export type EventState = {
     pastEvents: Event[];
     selectedEvent?: Event;
     selectedEventParticipants?: Participant[];
+    eventToGet?: number;
     eventToSave?: Event;
+    eventToDelete?: Event;
 }
 
 const initialState: EventState = {
@@ -37,15 +39,27 @@ const eventSlice = createSlice({
             state.selectedEvent = action.payload;
             state.selectedEventParticipants = action.payload.participants;
         },
+        setEventToGet: (state, action) => {
+            state.eventToGet = action.payload;
+        },
+        clearEventToGet: (state) => {
+            state.eventToGet = undefined;
+        },
         setEventToSave: (state, action) => {
             state.eventToSave = action.payload;
         },
         clearEventToSave: (state) => {
             state.eventToSave = undefined;
+        },
+        setEventToDelete: (state, action) => {
+            state.eventToDelete = action.payload;
+        },
+        clearEventToDelete: (state) => {
+            state.eventToDelete = undefined;
         }
     }
 });
 
-export const { setUpcomingEvents, setPastEvents, setSelectedEvent, setEventToSave, clearEventToSave } = eventSlice.actions;
+export const { setUpcomingEvents, setPastEvents, setSelectedEvent, setEventToGet, clearEventToGet, setEventToSave, clearEventToSave, setEventToDelete, clearEventToDelete } = eventSlice.actions;
 
 export default eventSlice.reducer;

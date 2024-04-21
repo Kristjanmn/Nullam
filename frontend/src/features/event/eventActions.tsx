@@ -1,7 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../utils/api';
+import {
+    setPastEvents,
+    setUpcomingEvents,
+    setSelectedEvent,
+    clearEventToSave,
+    clearEventToGet, clearEventToDelete
+} from './eventSlice';
+import { HttpStatusCode } from 'axios';
 import { RootState } from '../../app/store';
-import { setPastEvents, setUpcomingEvents } from './eventSlice';
 
 export const getEvents = createAsyncThunk(
     'event/getEvents',
@@ -42,5 +49,54 @@ export const getPastEvents = createAsyncThunk(
                 console.error(error);
                 return error;
             });
+    }
+);
+
+export const getEvent = createAsyncThunk(
+    'event/getById',
+    async (arg, { getState, dispatch }) => {
+        const state: RootState = getState();
+        await API.get(`event/${state.event.eventToGet}`)
+            .then(response => {
+                dispatch(setSelectedEvent(response.data));
+            })
+            .catch(error => {
+                console.error(error);
+                return error;
+            })
+            .finally(() => dispatch(clearEventToGet()));
+    }
+);
+
+export const saveEvent = createAsyncThunk(
+    'event/save',
+    async (args, { getState, dispatch }) => {
+        const state: RootState = getState();
+        await API.post('event/', state.event.eventToSave)
+            .then(response => {
+                if (response.status === HttpStatusCode.Ok && response.data.id)
+                    return response.data.id;
+            })
+            .catch(error => {
+                console.error(error);
+                return error;
+            })
+            .finally(() => dispatch(clearEventToSave()));
+    }
+);
+
+export const deleteEvent = createAsyncThunk(
+    'event/delete',
+    async (args, { getState, dispatch }) => {
+        const state: RootState = getState();
+        await API.delete('event/', state.event.eventToDelete)
+            .then(() => {
+                return;
+            })
+            .catch(error => {
+                console.error(error);
+                return error;
+            })
+            .finally(dispatch(clearEventToDelete));
     }
 );
