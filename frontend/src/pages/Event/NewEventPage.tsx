@@ -23,14 +23,17 @@ export const NewEventPage: React.FC<NewEventPageProps> = (props: NewEventPagePro
 
     const save = async () => {
         if (isAnyStringBlank([event.name, event.location]) ||
-            !isDateInFuture(event.dateTime))
+            !isDateInFuture(event.dateTime)) {
             window.alert('Some required fields are empty!');
-        dispatch(saveEvent(event))
+            return;
+        }
+        dispatch(setEventToSave(event));
+        await dispatch(saveEvent())
             .then(unwrapResult)
             .then(result => {
-                console.log(result);
                 navigate(`/event/${result}`);
-            });
+            })
+            .catch(error => window.alert(error));
     };
     const onDateTimeChanged = (date: Date | undefined | null) => {
         if (date)
@@ -47,7 +50,7 @@ export const NewEventPage: React.FC<NewEventPageProps> = (props: NewEventPagePro
                     </div>
                     <div className="label-field">
                         <label className="label-field-left" htmlFor="dateTime">{t('event.date-time')}:</label>
-                        <Calendar className="label-field-right" id="dateTime" value={event.dateTime} showTime hourFormat="24" onChange={(e) => onDateTimeChanged(e.target.value)} />
+                        <Calendar className="label-field-right" id="dateTime" value={event.dateTime} showTime hourFormat="24" onChange={(e) => onDateTimeChanged(e.target.value)} minDate={new Date()} />
                     </div>
                     <div className="label-field">
                         <label className="label-field-left" htmlFor="location">{t('event.location')}:</label>
