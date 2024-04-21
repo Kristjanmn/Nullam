@@ -5,6 +5,49 @@
     "/newevent": "Add new event"
   },
   "home": {
-    "info-text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ullamcorper purus sit amet nunc dictum pulvinar. Quisque ac lacus vitae velit maximus porttitor eu cursus sem. In aliquet euismod justo, iaculis consectetur erat vehicula quis. Proin vitae sapien dapibus, consequat elit quis, vulputate nunc."
+    "info-text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ullamcorper purus sit amet nunc dictum pulvinar. Quisque ac lacus vitae velit maximus porttitor eu cursus sem.",
+    "upcoming-events": "Upcoming events",
+    "past-events": "Past events",
+    "event-participants": "PARTICIPANTS",
+    "new-event": "ADD EVENT",
+    "no-events": "No events found"
+  },
+  "event": {
+    "name": "Event name",
+    "location": "Location",
+    "date": "Date",
+    "date-time": "Time",
+    "participants": "Participants",
+    "participants-table-empty": "No participants",
+    "participants-add": "Add participant",
+    "participants-item-show": "Show",
+    "participants-item-remove": "Delete",
+    "additional-info": "Additional info",
+    "new-event-title": "Add new event",
+    "new-event-back-btn": "Back",
+    "new-event-add-btn": "Add"
+  },
+  "participant": {
+    "type": {
+      "person": "Person",
+      "organization": "Organization"
+    },
+    "person": {
+      "first-name": "First name",
+      "last-name": "Last name",
+      "personal-code": "Personal code",
+      "payment-method": "Payment method",
+      "additional-info": "Additional info"
+    },
+    "organization": {
+      "name": "Name",
+      "registration-code": "Registration code",
+      "participants": "Participants",
+      "payment-method": "Payment method",
+      "additional-info": "Additional info"
+    },
+    "name": "Name",
+    "code": "Code",
+    "participant-info": "Participant info"
   }
 }

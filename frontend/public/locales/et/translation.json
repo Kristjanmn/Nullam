@@ -5,6 +5,49 @@
     "/newevent": "Ürituse lisamine"
   },
   "home": {
-    "info-text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ullamcorper purus sit amet nunc dictum pulvinar. Quisque ac lacus vitae velit maximus porttitor eu cursus sem. In aliquet euismod justo, iaculis consectetur erat vehicula quis. Proin vitae sapien dapibus, consequat elit quis, vulputate nunc."
+    "info-text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ullamcorper purus sit amet nunc dictum pulvinar. Quisque ac lacus vitae velit maximus porttitor eu cursus sem.",
+    "upcoming-events": "Tulevased üritused",
+    "past-events": "Toimunud üritused",
+    "event-participants": "OSAVÕTJAD",
+    "new-event": "LISA ÜRITUS",
+    "no-events": "Ühtegi üritust ei leitud"
+  },
+  "event": {
+    "name": "Ürituse nimi",
+    "location": "Koht",
+    "date": "Kuupäev",
+    "date-time": "Toimumisaeg",
+    "participants": "Osavõtjad",
+    "participants-table-empty": "Pole osavõtjaid",
+    "participants-add": "Osavõtja lisamine",
+    "participants-item-show": "VAATA",
+    "participants-item-remove": "KUSTUTA",
+    "additional-info": "Lisainfo",
+    "new-event-title": "Ürituse lisamine",
+    "new-event-back-btn": "Tagasi",
+    "new-event-add-btn": "Lisa"
+  },
+  "participant": {
+    "type": {
+      "person": "Eraisik",
+      "organization": "Ettevõte"
+    },
+    "person": {
+      "first-name": "Eesnimi",
+      "last-name": "Perekonnanimi",
+      "personal-code": "Isikukood",
+      "payment-method": "Makseviis",
+      "additional-info": "Lisainfo"
+    },
+    "organization": {
+      "name": "Ettevõtte nimi",
+      "registration-code": "Ettevõtte registrikood",
+      "participants": "Osavõtjate arv",
+      "payment-method": "Makseviis",
+      "additional-info": "Lisainfo"
+    },
+    "name": "Nimi",
+    "code": "Kood",
+    "participant-info": "Osavõtja info"
   }
 }
