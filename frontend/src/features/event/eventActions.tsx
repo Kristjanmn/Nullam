@@ -89,7 +89,7 @@ export const deleteEvent = createAsyncThunk(
     'event/delete',
     async (args, { getState, dispatch }) => {
         const state: RootState = getState();
-        await API.delete('event/', state.event.eventToDelete)
+        await API.delete(`event/${state.event.e.id}`)
             .then(() => {
                 return;
             })
