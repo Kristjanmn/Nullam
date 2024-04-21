@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RequestMapping("event/")
 public class EventController {
     private final IEventService eventService;
@@ -18,6 +19,16 @@ public class EventController {
     @GetMapping
     public ResponseEntity<List<EventDTO>> getEvents() {
         return ResponseEntity.ok(this.eventService.getEventDtos());
+    }
+
+    @GetMapping("upcoming")
+    public ResponseEntity<List<EventDTO>> getUpcomingEvents() {
+        return ResponseEntity.ok(this.eventService.getUpcomingEventDtos());
+    }
+
+    @GetMapping("past")
+    public ResponseEntity<List<EventDTO>> getPastEvents() {
+        return ResponseEntity.ok(this.eventService.getPastEventDtos());
     }
 
     @GetMapping("{id}")
@@ -38,5 +49,11 @@ public class EventController {
                 this.eventService.eventToDto(
                         this.eventService.saveEvent(
                                 this.eventService.dtoToEvent(eventDTO))));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteEvent(@PathVariable long id) {
+        this.eventService.deleteEvent(id);
+        return ResponseEntity.ok().build();
     }
 }
