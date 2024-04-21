@@ -2,9 +2,15 @@ package io.nqa.nullam.entity;
 
 import io.nqa.nullam.enums.PaymentMethod;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table(name = "person")
 public class Person {
