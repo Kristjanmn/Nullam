@@ -12,7 +12,7 @@ export const PageHeadComponent: FC<PageHeadComponentProps> = (props: PageHeadCom
                 <SplitterPanel size={25}>
                     <div className="page-head-text">{props.text}</div>
                 </SplitterPanel>
-                <SplitterPanel size={75}><img className="page-head-image" src={`//${window?.top?.location.host}/libled.jpg`} alt="remove"/></SplitterPanel>
+                <SplitterPanel size={75}><img className="page-head-image" src={`//${window?.top?.location.host}/libled.jpg`} alt="banner"/></SplitterPanel>
             </Splitter>
         </>
     );

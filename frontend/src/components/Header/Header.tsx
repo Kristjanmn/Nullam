@@ -1,12 +1,9 @@
-import react, { FC, useState } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { header, RouteType } from '../RouterProvider';
 import { cloneDeep } from 'lodash';
 import { MenuItem } from 'primereact/menuitem';
-import { Toolbar } from 'primereact/toolbar';
-import { TabMenu } from 'primereact/tabmenu';
-import { useEffectOnce } from 'react-use';
 import { Menubar } from 'primereact/menubar';
 import { navButtonTemplate } from './NavButton';
 
@@ -17,7 +14,6 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
     const navigate = useNavigate();
     const menuItems: MenuItem[] | { label: string; command: () => void; }[] = [];
     const routerRoutes: Array<RouteType> = cloneDeep(header);
-    const [activeIndex, setActiveIndex] = useState(-1);
 
     routerRoutes.forEach(route => {
         menuItems.push({
@@ -30,29 +26,11 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
         });
     });
 
-    useEffectOnce(() => {
-        routerRoutes.forEach((route, index) => {
-            if (route.path === window.location.pathname) {
-                return;
-            }
-        })
-    })
-
     const logo = (
         <>
             <div className="header-logo">
-                <img src={`//${window?.top?.location.host}/logo.svg`}  alt="logo"/>
+                <img src={`//${window?.top?.location.host}/logo.svg`} alt="logo"/>
             </div>
-        </>
-    );
-
-    const navbar = (
-        <>
-            <TabMenu
-                className="header-nav"
-                model={menuItems}
-                activeIndex={activeIndex}
-            />
         </>
     );
 
