@@ -3,7 +3,7 @@ import { HomePage } from '../pages/Home/HomePage';
 import { Route, Routes } from 'react-router-dom';
 import { NewEventPage } from '../pages/Event/NewEventPage';
 import { EventDetailsPage } from '../pages/Event/EventDetailsPage';
-import { ParticipantDetailsPage } from '../pages/Event/ParticipantDetailsPage';
+import { ParticipantPage } from '../pages/Participant/ParticipantPage';
 
 export type RouteType = {
     path: string,
@@ -30,7 +30,7 @@ export const RouterProvider = (): JSX.Element => {
             <Route path='/' element={<HomePage />} />
             <Route path='/newevent' element={<NewEventPage />} />
             <Route path="/event/:id" element={<EventDetailsPage />} />
-            <Route path="/participant/:id" element={<ParticipantDetailsPage />} />
+            <Route path="/participant/:id" element={<ParticipantPage />} />
         </Routes>
     );
 };
